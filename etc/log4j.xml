@@ -47,29 +47,29 @@ omero.blitz.xargs.
     <appender-ref ref="Perf4jJmxAppender"/>
   </appender>
   <category name="org.perf4j.TimingLogger">
-    <level value="INFO"/>
+    <level value="DEBUG"/>
     <appender-ref ref="CoalescingStatistics"/>
   </category>
 
   <!-- INTERNAL /////////////////////////////////////////////////////////////// -->
-  <category name="ome"> <priority value="INFO"/> </category>
-  <category name="ome.formats"> <priority value="INFO"/> </category>
-  <category name="omero"> <priority value="INFO"/> </category>
-  <category name="omeis"> <priority value="INFO"/> </category>
-  <category name="OMERO"> <priority value="INFO"/> </category>
+  <category name="ome"> <priority value="DEBUG"/> </category>
+  <category name="ome.formats"> <priority value="DEBUG"/> </category>
+  <category name="omero"> <priority value="DEBUG"/> </category>
+  <category name="omeis"> <priority value="DEBUG"/> </category>
+  <category name="OMERO"> <priority value="DEBUG"/> </category>
   <!-- Inherit from Spring/etc and so are a bit verbose -->
   <category name="ome.system.OmeroContext"> <priority value="WARN"/> </category>
   <category name="ome.system.PreferenceContext"> <priority value="WARN"/> </category>
-  <category name="ome.security.basic.CurrentDetails"> <priority value="INFO"/> </category>
-  <category name="ome.services.blitz.impl.ServiceFactoryI"> <priority value="INFO"/> </category>
-  <category name="ome.services.blitz.impl.OmeroMetadata"> <priority value="INFO"/> </category>
+  <category name="ome.security.basic.CurrentDetails"> <priority value="DEBUG"/> </category>
+  <category name="ome.services.blitz.impl.ServiceFactoryI"> <priority value="DEBUG"/> </category>
+  <category name="ome.services.blitz.impl.OmeroMetadata"> <priority value="DEBUG"/> </category>
   <category name="ome.services.blitz.util.ShutdownSafeEhcacheManagerFactoryBean"> <priority value="WARN"/> </category>
   <!-- Often useful to change to DEBUG -->
-  <category name="omero.cmd"> <priority value="INFO"/> </category>
-  <category name="ome.services.graphs"> <priority value="INFO"/> </category>
-  <category name="ome.services.chgrp"> <priority value="INFO"/> </category>
-  <category name="ome.services.chmod"> <priority value="INFO"/> </category>
-  <category name="ome.services.delete"> <priority value="INFO"/> </category>
+  <category name="omero.cmd"> <priority value="DEBUG"/> </category>
+  <category name="ome.services.graphs"> <priority value="DEBUG"/> </category>
+  <category name="ome.services.chgrp"> <priority value="DEBUG"/> </category>
+  <category name="ome.services.chmod"> <priority value="DEBUG"/> </category>
+  <category name="ome.services.delete"> <priority value="DEBUG"/> </category>
   <!-- Adapters are also too so is a bit verbose -->
   <category name="ome.adapters"> <priority value="ERROR"/> </category>
 
