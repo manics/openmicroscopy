@@ -59,6 +59,8 @@
         <property name="IceSSL.KeyFile" value="privkey.pem"/>
         <property name="IceSSL.CertAuthFile" value="ca.pem"/>
       </target>
+      <property name="Ice.Trace.Protocol" value="1"/>
+      <property name="Ice.Trace.Network" value="3"/>
     </properties>
 
     <properties id="PythonServer">
@@ -79,6 +81,8 @@
             DEBUG     10
             NOTSET    0
       -->
+      <property name="Ice.Trace.Protocol" value="0"/>
+      <property name="Ice.Trace.Network" value="0"/>
     </properties>
 
     <properties id="CppServer">
@@ -219,6 +223,8 @@
           <properties refid="Blitz"/>
           <properties refid="MultiThreaded"/>
           <properties refid="Profile"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -242,6 +248,8 @@
           <properties refid="Blitz"/>
           <properties refid="SingleThreaded"/>
           <properties refid="Profile"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -267,6 +275,8 @@
           <properties refid="SingleThreaded"/>
           <properties refid="Profile"/>
           <property name="omero.repo.dir" value="${dir}"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -294,6 +304,8 @@
           <properties refid="MultiThreaded"/>
           <properties refid="Repository"/>
           <properties refid="Profile"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -336,6 +348,8 @@
           <properties refid="Repository"/>
           <properties refid="Profile"/>
           <property name="omero.repo.dir" value="${dir}"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -358,6 +372,8 @@
           <properties refid="Repository"/>
           <properties refid="Profile"/>
           <property name="omero.repo.dir" value="${dir}"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -378,6 +394,8 @@
           <properties refid="Profile"/>
           <property name="omero.fs.fileServerIdString" value="FileServer"/>
           <property name="omero.fs.fileServerAdapterName" value="omerofs.FileServer"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -398,6 +416,8 @@
           <properties refid="Profile"/>
           <property name="omero.fs.monitorServerIdString" value="MonitorServer"/>
           <property name="omero.fs.monitorServerAdapterName" value="omerofs.MonitorServer"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -418,6 +438,8 @@
           <property name="omero.fs.serverIdString" value="MonitorServer"/>
           <property name="omero.fs.clientIdString" value="DropBox"/>
           <property name="omero.fs.clientAdapterName" value="omerofs.DropBox"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -441,6 +463,8 @@
           <!-- By adding an omero.fstest.config property, the behavior of the
           DropBox sever will change! -->
           <property name="omero.fstest.config" value="${OMERO_ETC}testdropbox.config"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -455,6 +479,8 @@
         <adapter name="${id}Adapter" endpoints="tcp"/>
         <properties>
           <properties refid="Profile"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
         </properties>
       </server>
     </server-template>
@@ -477,6 +503,8 @@
             <property name="IcePatch2.Admin.RegisterProcess" value="1"/>
             <property name="IcePatch2.InstanceName" value="${instance-name}"/>
             <property name="IcePatch2.Directory" value="${directory}"/>
+            <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+            <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
          </properties>
        </server>
     </server-template>
@@ -502,6 +530,8 @@
           <property name="Glacier2.SessionManager" value="BlitzManager@BlitzAdapters"/>
           <property name="Glacier2.Client.ForwardContext" value="1"/>
           <property name="Glacier2.Filter.Category.Accept" value="ProcessCallback ProcessorCallback"/>
+          <property name="Ice.StdErr" value="${OMERO_LOGS}${server}-ice.err"/>
+          <property name="Ice.StdOut" value="${OMERO_LOGS}${server}-ice.out"/>
           <target name="trace">
             <property name="Glacier2.Client.Trace.Override" value="1"/>
             <property name="Glacier2.Client.Trace.Reject" value="1"/>
