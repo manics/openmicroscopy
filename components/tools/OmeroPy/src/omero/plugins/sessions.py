@@ -298,6 +298,15 @@ class SessionsControl(BaseControl):
         if args.group:
             props["omero.group"] = args.group
 
+        socksproxy = os.getenv('SOCKS_SERVER')
+        if socksproxy:
+            if ':' in socksproxy:
+                sockshost, socksport = socksproxy.split(':')
+                props['Ice.SOCKSProxyHost'] = sockshost
+                props['Ice.SOCKSProxyPort'] = socksport
+            else:
+                props['Ice.SOCKSProxyHost'] = socksproxy
+
         #
         # Retrieving the parameters as set by the user
         # If these are set and different from the current
