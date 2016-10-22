@@ -417,6 +417,17 @@ class Context:
 
     """
 
+    class CommandOutput:
+        """
+        Store stdout and stderr for an executed command
+        """
+        def __init__(self):
+            self.out = []
+            self.err = []
+
+        def __str__(self):
+            return 'out:%s err:%s' % (self.out, self.err)
+
     def __init__(self, controls=None, params=None, prog=sys.argv[0]):
         self.controls = controls
         if self.controls is None:
@@ -432,6 +443,8 @@ class Context:
         self.topics = {"debug": DEBUG_HELP, "env": ENV_HELP}
         self.parser = Parser(prog=prog, description=OMERODOC)
         self.subparsers = self.parser_init(self.parser)
+        # Store stdout and stderr for each executed command
+        self.output = []
 
     def post_process(self):
         """
@@ -546,12 +559,14 @@ class Context:
         Expects a single string as argument.
         """
         self.safePrint(text, sys.stdout, newline)
+        self.output[-1].out.append(text)
 
     def err(self, text, newline=True):
         """
         Expects a single string as argument.
         """
         self.safePrint(text, sys.stderr, newline)
+        self.output[-1].err.append(text)
 
     def dbg(self, text, newline=True, level=1):
         """
@@ -575,6 +590,9 @@ class Context:
 
     def sleep(self, time):
         self.event.wait(time)
+
+    def _next_output(self):
+        self.output.append(self.CommandOutput())
 
 #####################################################
 #
@@ -1041,6 +1059,7 @@ class CLI(cmd.Cmd, Context):
             try:
                 self._stack.insert(0, line)
                 self.dbg("Stack+: %s" % len(self._stack), level=2)
+                self._next_output()
                 self.execute(line, previous_args)
                 return True
             finally:
