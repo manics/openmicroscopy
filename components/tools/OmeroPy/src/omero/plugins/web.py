@@ -174,6 +174,10 @@ class WebControl(BaseControl):
             help="Maximum allowed size of the client request body."
             "Default: 0 (disabled)")
         nginx_group.add_argument(
+            "--server-include-file", type=str, default='',
+            help="Path to a file that will be included in the generated web "
+            "configuration server section")
+        nginx_group.add_argument(
             "--system", action="store_true", help=SUPPRESS)
 
         parser.add(
@@ -306,6 +310,7 @@ class WebControl(BaseControl):
         if server in ("nginx", "nginx-development",):
             d["MAX_BODY_SIZE"] = args.max_body_size
             d["SERVERNAME"] = servername
+            d["SERVER_INCLUDE_FILE"] = args.server_include_file
 
         # FORCE_SCRIPT_NAME always has a starting /, and will not have a
         # trailing / unless there is no prefix (/)
