@@ -755,6 +755,11 @@ CUSTOM_SETTINGS_MAPPINGS = {
           " 'channel_overlay_panel']``. "
           "The javascript loads data into ``$('#div_id')``.")],
 
+    "omero.web.api.hide_containers":
+        ["HIDE_CONTAINERS", '{}', json.loads,
+         ("Dictionary of containers to hide from webclient/api/containers "
+          "in form `{ObjectType: [List of IDs]}`")],
+
     # CORS
     "omero.web.cors_origin_whitelist":
         ["CORS_ORIGIN_WHITELIST",

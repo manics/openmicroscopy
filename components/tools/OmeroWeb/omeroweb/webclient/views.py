@@ -674,6 +674,13 @@ def api_container_list(request, conn=None, **kwargs):
     except IceException as e:
         return HttpResponseServerError(e.message)
 
+    if settings.HIDE_CONTAINERS:
+        for otype, ids in settings.HIDE_CONTAINERS.iteritems():
+            idset = set(ids)
+            rotype = otype.lower() + 's'
+            if rotype in r:
+                r[rotype] = [o for o in r[rotype] if o['id'] not in idset]
+
     return JsonResponse(r)
 
 
