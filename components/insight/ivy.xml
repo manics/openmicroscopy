@@ -67,7 +67,7 @@
     <dependency org="${org.bioformats}" name="formats-bsd" rev="${versions.bioformats}">
         <exclude org="com.jgoodies"/>
         <exclude org="org.slf4j"/>
-        <exclude org="xml-apis"/>
+
     </dependency>
     <dependency org="${org.bioformats}" name="formats-gpl" rev="${versions.bioformats}">
         <exclude org="org.slf4j"/>
