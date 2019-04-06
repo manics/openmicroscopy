@@ -264,8 +264,10 @@ class BaseClient(object):
         id.properties.setProperty("Ice.Default.Router", router)
 
         # Verify certificate against hostname and equivalent wildcard
-        if (host != """<"omero.host" not set>""" and
-                os.getenv('OMERO_SSL_NO_VERIFY') != '1'):
+        host = id.properties.getPropertyWithDefault(
+            "omero.host", id.properties.getPropertyWithDefault(
+                "omero.url.host", ""))
+        if host and os.getenv('OMERO_SSL_NO_VERIFY') != '1':
             trustonly = "CN=%s" % host
             firstdot = host.find('.')
             if firstdot > -1:
