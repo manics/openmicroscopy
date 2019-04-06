@@ -20,6 +20,7 @@ finally:
     del __save__
 
 sys = __import__("sys")
+import os
 import threading
 import logging
 import IceImport
@@ -205,13 +206,23 @@ class BaseClient(object):
         self._optSetProp(id, "Ice.Default.PreferSecure", "1")
         self._optSetProp(id, "Ice.Plugin.IceSSL", "IceSSL:createIceSSL")
 
-        if sys.platform == "darwin":
-            self._optSetProp(id, "IceSSL.Ciphers", "NONE (DH_anon.*AES)")
-        else:
-            self._optSetProp(id, "IceSSL.Ciphers", "ADH")
+        if os.getenv('OMERO_SSL_NO_VERIFY') == '1':
+            if sys.platform == "darwin":
+                self._optSetProp(id, "IceSSL.Ciphers", "NONE (DH_anon.*AES)")
+            else:
+                self._optSetProp(id, "IceSSL.Ciphers", "ADH")
 
-        self._optSetProp(id, "IceSSL.VerifyPeer", "0")
-        self._optSetProp(id, "IceSSL.Protocols", "tls1")
+            self._optSetProp(id, "IceSSL.VerifyPeer", "0")
+            self._optSetProp(id, "IceSSL.Protocols", "tls1")
+        else:
+            self._optSetProp(id, "IceSSL.Ciphers", "HIGH")
+            self._optSetProp(id, "IceSSL.VerifyPeer", "1")
+            self._optSetProp(id, "IceSSL.Protocols", "tls1_2")
+            capath = os.getenv('OMERO_SSL_CA')
+            if capath:
+                self._optSetProp(id, "IceSSL.CAs", capath)
+            else:
+                self._optSetProp(id, "IceSSL.UsePlatformCAs", "1")
 
         # Setting block size
         self._optSetProp(
@@ -246,6 +257,15 @@ class BaseClient(object):
         router = router.replace("@omero.port@", str(port))
         router = router.replace("@omero.host@", str(host))
         id.properties.setProperty("Ice.Default.Router", router)
+
+        # Verify certificate against hostname and equivalent wildcard
+        if (host != """<"omero.host" not set>""" and
+                os.getenv('OMERO_SSL_NO_VERIFY') != '1'):
+            trustonly = "CN=%s" % host
+            firstdot = host.find('.')
+            if firstdot > -1:
+                trustonly += ";CN=*%s" % host[firstdot:]
+            self._optSetProp(id, "IceSSL.TrustOnly", trustonly)
 
         # Dump properties
         dump = id.properties.getProperty("omero.dump")
