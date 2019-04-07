@@ -212,6 +212,7 @@ class BaseClient(object):
             self._optSetProp(id, "IceSSL.Ciphers", "HIGH")
             self._optSetProp(id, "IceSSL.VerifyPeer", "1")
             self._optSetProp(id, "IceSSL.Protocols", "tls1_2")
+            self._optSetProp(id, "IceSSL.VerifyDepthMax", "0")
             capath = os.getenv('OMERO_SSL_CA')
             if capath:
                 self._optSetProp(id, "IceSSL.CAs", capath)
