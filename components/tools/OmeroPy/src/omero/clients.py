@@ -266,8 +266,8 @@ class BaseClient(object):
 
         # Verify certificate against hostname and equivalent wildcard
         host = id.properties.getPropertyWithDefault(
-            "omero.host", id.properties.getPropertyWithDefault(
-                "omero.url.host", ""))
+            "omero.url.host", id.properties.getPropertyWithDefault(
+                "omero.host", ""))
         if host and os.getenv('OMERO_SSL_NO_VERIFY') != '1':
             trustonly = "CN=%s" % host
             firstdot = host.find('.')
