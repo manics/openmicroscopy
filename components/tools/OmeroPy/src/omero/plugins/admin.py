@@ -1525,6 +1525,17 @@ present, the user will enter a console""")
             self._item("Jar", jar)
             self.ctx.out('\t'.join(info))
 
+        # Python module versions
+        self.ctx.out('')
+        if args.all_py:
+            pkgs = self._get_python_modules()
+            if pkgs:
+                for pkg in pkgs:
+                    self._item('Python', pkg[0])
+                    self.ctx.out(pkg[1])
+            else:
+                self.ctx.out('Unable to list Python modules')
+
     def email(self, args):
         client = self.ctx.conn(args)
         iadmin = client.sf.getAdminService()

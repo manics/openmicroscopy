@@ -1042,6 +1042,9 @@ class DiagnosticsControl(BaseControl):
         diagnostics.add_argument(
             "--no-logs", action="store_true",
             help="Skip log parsing")
+        diagnostics.add_argument(
+            "--all-py", action="store_true",
+            help="Show information for all detected Python modules")
         return diagnostics
 
     def _diagnostics_banner(self, control_name):
@@ -1098,6 +1101,14 @@ OMERO Diagnostics (%s) %s
                 if warn or err:
                     msg = " errors=%-4s warnings=%-4s" % (err, warn)
                 self.ctx.out("%-12s %s" % (self._sz_str(p.size), msg))
+
+    def _get_python_modules(self):
+        try:
+            import pkg_resources
+            return sorted([(pkg.project_name, getattr(pkg, 'version', ''))
+                          for pkg in pkg_resources.working_set])
+        except ImportError:
+            return []
 
 
 class CLI(cmd.Cmd, Context):

@@ -652,6 +652,17 @@ class WebControl(DiagnosticsControl):
                 self._item("Log file ", log_file)
                 self._exists(log_dir / log_file)
 
+        # Python module versions
+        self.ctx.out('')
+        if args.all_py:
+            pkgs = self._get_python_modules()
+            if pkgs:
+                for pkg in pkgs:
+                    self._item('Python', pkg[0])
+                    self.ctx.out(pkg[1])
+            else:
+                self.ctx.out('Unable to list Python modules')
+
 try:
     register("web", WebControl, HELP)
 except NameError:
